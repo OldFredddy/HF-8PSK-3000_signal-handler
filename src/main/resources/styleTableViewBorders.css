@@ -1,0 +1,34 @@
+﻿/* Фоновый цвет */
+.table-view {
+    -fx-grid-lines-visible: true;
+    -fx-border-color: gray;
+    -fx-border-width: 1px;
+}
+
+/* Границы */
+.table-cell {
+    -fx-border-color: gray;
+    -fx-border-width: 1px;
+
+}
+
+
+.table-row-cell {
+    -fx-border-color: gray;
+    -fx-border-width: 1px;
+}
+
+.table-header-row {
+    -fx-border-color: gray;
+    -fx-border-width: 1px;
+}
+
+.table-header-cell {
+    -fx-border-color: gray;
+    -fx-border-width: 1px;
+}
+.table-row-cell:empty {
+    -fx-content: "";
+    -fx-height:100%;
+    -fx-background-color: #2e2f32 ;
+}

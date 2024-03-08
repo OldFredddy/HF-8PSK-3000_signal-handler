@@ -1,0 +1,30 @@
+/* Фоновый цвет */
+.text-field {
+    -fx-background-color: #2b5278;
+    -fx-control-inner-background: #2b5278;
+    -fx-control-inner-background-radius: 5;
+    -fx-padding: 5;
+}
+
+/* Границы */
+.text-field > .content {
+    -fx-border-color: #34363a;
+    -fx-border-width: 1px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+}
+
+/* Текст */
+.text-field > .content .text {
+    -fx-text-fill: white;
+}
+
+/* Выделение текста */
+.text-field > .content .text .selection {
+    -fx-background-color: #6c7a89;
+}
+
+/* Тень */
+.text-field > .content {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 10, 0.5, 0, 3);
+}

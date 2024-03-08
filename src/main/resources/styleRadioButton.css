@@ -1,0 +1,25 @@
+.radioButton {
+    -fx-background-color: #0e1621;
+    -fx-text-fill: #ffffff;
+}
+
+.radioButton:selected {
+    -fx-background-color: #3498db;
+    -fx-text-fill: #ffffff;
+}
+
+.radioButton .radio {
+    -fx-background-color: #0e1621;
+    -fx-border-color: #2a5885;
+    -fx-border-width: 2px;
+}
+
+.radioButton .radio:selected {
+    -fx-background-color: #3498db;
+    -fx-border-color: #0e1621;
+    -fx-mark-color: #ffffff;
+}
+
+.radioButton .radio:selected .mark {
+    -fx-shape: "M0,10 L5,15 L15,0";
+}

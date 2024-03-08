@@ -1,0 +1,52 @@
+.menu-bar {
+    -fx-background-color: #0e1621;
+}
+
+.menu, .menu-item {
+    -fx-background-color: #0e1621;
+    -fx-text-fill: white;
+}
+
+.menu:hover, .menu-item:hover {
+    -fx-background-color: #192734;
+    -fx-text-fill: white;
+}
+
+.menu:showing {
+    -fx-background-color: #192734;
+}
+
+.menu-item .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.menu-item:hover .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.menu-item:focused {
+    -fx-background-color: #192734;
+}
+
+.menu-item .radio, .menu-item .check {
+    -fx-text-fill: white;
+}
+
+.menu-item .graphic {
+    -fx-fill: white;
+}
+
+.context-menu {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0.5, 0, 1);
+}
+
+.context-menu .menu-item {
+    -fx-background-color: #0e1621;
+    -fx-text-fill: white;
+}
+
+.context-menu .menu-item:hover {
+    -fx-background-color: #192734;
+}
