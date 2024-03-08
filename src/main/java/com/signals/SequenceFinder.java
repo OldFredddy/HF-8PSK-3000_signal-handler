@@ -32,13 +32,7 @@ public class SequenceFinder {
         return -1; // Последовательность не найдена
     }
 
-    public static void main(String[] args) {
-        // Пример использования
-        String longSequence = "123456781243478";
-        List<Character> sig = convertStringToList(longSequence);
-        int index = findSequence(sig, "234567812");
-        System.out.println("Index of the sequence start: " + index); // Должен вернуть индекс за найденной последовательностью
-    }
+
 
     private static List<Character> convertStringToList(String str) {
         return str.chars().mapToObj(e -> (char) e).toList();
