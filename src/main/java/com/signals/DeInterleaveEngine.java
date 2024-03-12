@@ -163,7 +163,7 @@ public class DeInterleaveEngine {
         return outputWriteSignal;
     }
     private List<String> codeLinearCustom(List<String> inputSignal, int a, int b, String leftRight,String upDown ){
-        int i=0;
+        int i = 0;
         List <String> outputWriteSignal= new ArrayList<>();
         String [][] interleaverArr = new String[a][b];
         while(i<inputSignal.size()){

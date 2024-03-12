@@ -19,12 +19,16 @@ public class WalsheDecoder {
         intNumOfRepeats = Integer.parseInt(numOfRepeats);
         decArrWT.clear();
         char[] tempArr=new char[intNumOfSym];
-        for (int i = 0; i < tempDecodeTableWalsh.size(); i++) {
-            if (tempDecodeTableWalsh.get(i).length()!=intNumOfSym){
-                tempDecodeTableWalsh.remove(i);
-                tempDecodeTableBin.remove(i);
-                i = i-1;
+        try {
+            for (int i = 0; i < tempDecodeTableWalsh.size(); i++) {
+                if (tempDecodeTableWalsh.get(i).length() != intNumOfSym) {
+                    tempDecodeTableWalsh.remove(i);
+                    tempDecodeTableBin.remove(i);
+                    i = i - 1;
+                }
             }
+        } catch (Exception e){
+            System.out.println("s");
         }
         int x = 0;
         for (int i = 0; i < (int)(codeArr.size()/intNumOfSym/intNumOfRepeats); i++) {

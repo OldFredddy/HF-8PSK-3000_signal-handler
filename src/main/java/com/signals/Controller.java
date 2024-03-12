@@ -2,6 +2,7 @@ package com.signals;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -71,7 +72,7 @@ public class Controller {
     private int textAreaColCount=64;
     String filePath = null;
     @FXML
-    void initialize() throws IIOException {
+    void initialize() throws IOException, URISyntaxException {
         mainMenu.setVisible(false);
         IsxTA.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
@@ -82,6 +83,9 @@ public class Controller {
                 event.consume();
             }
         });
+        TxtOpen txt = new TxtOpen("/home/root1/develop/Java_less/HF-8PSK-3000_signal-handler/1.1/1_результат демодуляции структура_симв.txt");
+        codeArr = txt.ReadTxt();
+        SignalProcessing.decode8PSK_3000(codeArr,"txt");
         IsxTA.setOnDragDropped(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
@@ -92,7 +96,7 @@ public class Controller {
                         filePath = file.getAbsolutePath();
                         Task<Void> task = new Task<Void>() {
                             @Override
-                            public Void call() {
+                            public Void call() throws URISyntaxException {
                                 TxtOpen txt = new TxtOpen(filePath);
                                 try {
                                     if (filePath.endsWith(".txt")){
