@@ -5,7 +5,7 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STLongHexNumber;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+import java.util.Objects;
 
 
 public class DeInterleaveEngine {
@@ -17,7 +17,7 @@ public class DeInterleaveEngine {
      * @param b количество столбцов перемежителя
      * @param method необходимый метод (Custom_code, Custom_decode, 110A_code, 110A_decode, 110A_75N_decode, 110A_75N_code)
      * @param leftRight выбор направления линейного перемежителя (leftRight)
-     * @param leftRight выбор направления линейного перемежителя (upDown)
+     * @param upDown выбор направления линейного перемежителя (upDown)
      * @return результат деперемежения в List<String>
      */
     public List<String> runEngine(List<String> inputSignal, int a, int b, String method, String leftRight,String upDown ){
@@ -167,7 +167,7 @@ public class DeInterleaveEngine {
         List <String> outputWriteSignal= new ArrayList<>();
         String [][] interleaverArr = new String[a][b];
         while(i<inputSignal.size()){
-            if (upDown=="FromUpToDown") {
+            if (Objects.equals(upDown, "FromUpToDown")) {
                 for (int m = 0; m < b; m++) {
                     for (int l = 0; l < a; l++) {
                         try {
@@ -190,7 +190,7 @@ public class DeInterleaveEngine {
                     }
                 }
             }
-            if (leftRight=="FromLeftToRight") {
+            if (Objects.equals(leftRight, "FromLeftToRight")) {
                 for (int m = 0; m < a; m++) {
                     for (int l = 0; l < b; l++) {
                         outputWriteSignal.add(interleaverArr[m][l]);
@@ -211,7 +211,7 @@ public class DeInterleaveEngine {
         List <String> outputWriteSignal= new ArrayList<>();
         String [][] interleaverArr = new String[a][b];
         while(i<inputSignal.size()){  // Обработка всего входного сигнала
-               if (leftRight=="FromLeftToRight") {
+               if (Objects.equals(leftRight, "FromLeftToRight")) {
                    for (int m = 0; m < a; m++) {
                        for (int l = 0; l < b; l++) {
                            try {
@@ -234,7 +234,7 @@ public class DeInterleaveEngine {
                        }
                    }
                }
-          if (upDown=="FromUpToDown") {
+          if (Objects.equals(upDown, "FromUpToDown")) {
               for (int m = 0; m < b; m++) {
                   for (int l = 0; l < a; l++) {
                       outputWriteSignal.add(interleaverArr[l][m]);
