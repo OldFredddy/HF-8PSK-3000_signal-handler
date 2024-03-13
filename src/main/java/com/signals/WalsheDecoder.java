@@ -53,7 +53,6 @@ public class WalsheDecoder {
             for (int j = 0; j < tempDec.length(); j++) { //TODO проверить decArr.size()-1
                 decArr.add(tempDec.charAt(j));
             }
-            decArr.add('\n');
         }
         return decArr;
     }

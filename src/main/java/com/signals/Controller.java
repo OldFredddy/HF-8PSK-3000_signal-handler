@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -85,7 +89,19 @@ public class Controller {
         });
         TxtOpen txt = new TxtOpen("/home/root1/develop/Java_less/HF-8PSK-3000_signal-handler/1.1/1_результат демодуляции структура_симв.txt");
         codeArr = txt.ReadTxt();
-        SignalProcessing.decode8PSK_3000(codeArr,"txt");
+        filePath = "/home/root1/develop/Java_less/HF-8PSK-3000_signal-handler/1.1/1_результат демодуляции структура_симв.txt";
+        List<String> decodedData = SignalProcessing.decode8PSK_3000(codeArr, filePath.endsWith(".txt") ? "txt" : "raw");
+        Path path = Paths.get(filePath);
+        String fileName = path.getFileName().toString();
+        String newFileName = fileName.replaceFirst("(\\.txt)?$", "_decoded.txt"); // Добавляем '_decoded' перед расширением
+        Path outputPath = path.getParent().resolve(newFileName);
+
+// Объединяем элементы списка в одну строку без добавления новой строки между элементами
+        String contentToWrite = String.join("", decodedData);
+
+// Записываем результат в файл
+        Files.write(outputPath, contentToWrite.getBytes(StandardCharsets.UTF_8));
+
         IsxTA.setOnDragDropped(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
@@ -99,13 +115,18 @@ public class Controller {
                             public Void call() throws URISyntaxException {
                                 TxtOpen txt = new TxtOpen(filePath);
                                 try {
-                                    if (filePath.endsWith(".txt")){
+                                    List<Character> codeArr;
+                                    if (filePath.endsWith(".txt")) {
                                         codeArr = txt.ReadTxt();
-                                        SignalProcessing.decode8PSK_3000(codeArr,"txt");
                                     } else {
                                         codeArr = txt.bytesToBits(txt.ReadAll());
-                                        SignalProcessing.decode8PSK_3000(codeArr, "raw");
                                     }
+                                    List<String> decodedData = SignalProcessing.decode8PSK_3000(codeArr, filePath.endsWith(".txt") ? "txt" : "raw");
+                                    Path path = Paths.get(filePath);
+                                    String fileName = path.getFileName().toString();
+                                    String newFileName = fileName.replaceFirst("(\\.txt)?$", "_decoded.txt"); // Добавляем '_decoded' перед расширением
+                                    Path outputPath = path.getParent().resolve(newFileName);
+                                    Files.write(outputPath, decodedData);
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -120,7 +141,6 @@ public class Controller {
                                     IsxTA.clear();
                                     IsxTA.appendText(sb.toString());
                                 });
-
                                 return null;
                             }
                         }; // Запускаем задачу в новом потоке

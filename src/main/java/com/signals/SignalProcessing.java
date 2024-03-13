@@ -22,21 +22,25 @@ public class SignalProcessing {
         List<String> decodeTableBin = ExcelRead.readFromExcel(pathToDecodeWalshTable.getAbsolutePath(), 1);
 
         while (start < sig.size()) {
-            int startData = SequenceFinder.findSequence(sig.subList(start, sig.size()), bw);
             DeInterleaveEngine deInterleaveEngine = new DeInterleaveEngine();
+            int startData = SequenceFinder.findSequence(sig.subList(start, sig.size()), bw);
             if (startData == -1) {
                 break;
             }
-            startData += start;
+            startData += start; // Корректировка начального индекса с учетом смещения
+
+            // Находим начало следующего блока данных после текущего 'bw'
             int endData = SequenceFinder.findSequence(sig.subList(startData + bw.length(), sig.size()), bw);
             if (endData == -1) {
                 endData = sig.size();
             } else {
-                endData += startData + bw.length();
+                endData += startData; // Не добавляем bw.length() здесь, чтобы включить начало следующего 'bw'
             }
-            List<Character> dataBlock = sig.subList(startData + bw.length(), endData);
+
+            // Вырезаем блок данных, включая начальный 'bw'
+            List<Character> dataBlock = sig.subList(startData, endData);
             dataBlock = descramble(dataBlock, lrp);
-            dataBlock = WalsheDecoder.fastDecode(dataBlock, decodeTableWalsh, decodeTableBin, 30, "16", "4"); //16- разрядность, 4 - количество повторов
+            dataBlock = WalsheDecoder.fastDecode(dataBlock, decodeTableWalsh, decodeTableBin, 15, "16", "4"); //16- разрядность, 4 - количество повторов
             List<String> dataBlockListString = deInterleaveEngine.runEngine(dataBlock.stream()
                     .map(String::valueOf)
                     .collect(Collectors.toList()), 4, 24, "Custom_decode", "FromLeftToRight", "FromUpToDown");
